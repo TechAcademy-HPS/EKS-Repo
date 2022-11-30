@@ -15,7 +15,7 @@ pipeline {
       	
          stage('Build'){
              steps{
-	            sh "cd mavenapp"
+	            
 		    sh "mvn clean package"
 	              }
         }  
@@ -34,7 +34,7 @@ pipeline {
 			  withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerpassword', usernameVariable: 'dockeruser')]) {
                                         
 					sh 'docker login -u yoshithadocker -p ${dockerpassword}'
-			                sh "docker push yoshithadocker/mydockerrepo:latest"
+			                sh "docker push yoshithadocker/mydockerrepo:${buildno}"
                      }
                   }
               }
